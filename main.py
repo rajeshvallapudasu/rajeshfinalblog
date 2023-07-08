@@ -20,7 +20,7 @@ Bootstrap(app)
 gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False, base_url=None)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = "./cloud-sql-proxy focal-acronym-392206:us-central1:rajesh"
+app.config['SQLALCHEMY_DATABASE_URI'] = "https://console.cloud.google.com/sql/instances/rajesh/overview?project=focal-acronym-392206"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
