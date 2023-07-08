@@ -20,7 +20,7 @@ Bootstrap(app)
 gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False, base_url=None)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URL'] = 'quickstart-cloud-run-postgres-instance:///quickstart-db'
+app.config['SQLALCHEMY_DATABASE_URL'] = 'gcr.io/focal-acronym-392206/run-sql@sha256:fab4d13d907f79c1daeae331ee20d66e62205a2a51cc8a8e933df20d3df9819d'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
