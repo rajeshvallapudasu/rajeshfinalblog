@@ -24,7 +24,7 @@ gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=Fa
 PASSWORD = "F|G`Jf|i]fBI4)JJ"
 PUBLIC_IP_ADDRESS = "34.100.145.83"
 DBNAME = "testingblog"
-PROJECT_ID = "vallapudasurajesh"
+PROJECT_ID = "focal-acronym-392206"
 INSTANCE_NAME = "focal-acronym-392206:asia-south1:vallapudasurajesh"
 
 # configuration
