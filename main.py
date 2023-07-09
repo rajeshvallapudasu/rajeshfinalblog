@@ -27,8 +27,6 @@ import os
 import pg8000
 
 import sqlalchemy
-
-
 def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     """
     Initializes a connection pool for a Cloud SQL instance of Postgres.
@@ -87,7 +85,9 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     )
     return pool
 
-app.config['SQLALCHEMY_DATABASE_URL'] = connect_with_connector()
+
+
+app.config['SQLALCHEMY_DATABASE_URL'] =sqlalchemy.engine.base.Engine
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
