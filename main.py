@@ -14,82 +14,29 @@ from flask import abort
 from flask_gravatar import Gravatar
 from google.cloud.sql.connector import Connector, IPTypes
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+
 ckeditor = CKEditor(app)
 Bootstrap(app)
 gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False, base_url=None)
 
 ##CONNECT TO DB
 
-import os
+PASSWORD = "password"
+PUBLIC_IP_ADDRESS = "34.66.195.165"
+DBNAME = "quickstart-db"
+PROJECT_ID = "focal-acronym-392206"
+INSTANCE_NAME = "focal-acronym-392206:us-central1:quickstart-cloud-run-postgres-instancekstart-cloud-run-postgres-instance"
 
+# configuration
+app.config["SECRET_KEY"] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config[
+    "SQLALCHEMY_DATABASE_URI"] = f"mysql + mysqldb://root:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}?unix_socket =/cloudsql/{PROJECT_ID}:{INSTANCE_NAME}"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 
-import pg8000
-
-import sqlalchemy
-def connect_with_connector() -> sqlalchemy.engine.base.Engine:
-    """
-    Initializes a connection pool for a Cloud SQL instance of Postgres.
-
-    Uses the Cloud SQL Python Connector package.
-    """
-    # Note: Saving credentials in environment variables is convenient, but not
-    # secure - consider a more secure solution such as
-    # Cloud Secret Manager (https://cloud.google.com/secret-manager) to help
-    # keep secrets safe.
-
-    instance_connection_name = os.environ[
-        "focal-acronym-392206:us-central1:quickstart-cloud-run-postgres-instancekstart-cloud-run-postgres-instance"
-    ]  # e.g. 'project:region:instance'
-    db_user = os.environ["quickstart-postgres-user"]  # e.g. 'my-db-user'
-    db_pass = os.environ["password"]  # e.g. 'my-db-password'
-    db_name = os.environ["quickstart-db"]  # e.g. 'my-database'
-
-    ip_type = IPTypes.PRIVATE if os.environ.get("PRIVATE_IP") else IPTypes.PUBLIC
-
-    # initialize Cloud SQL Python Connector object
-    connector = Connector()
-
-    def getconn() -> pg8000.dbapi.Connection:
-        conn: pg8000.dbapi.Connection = connector.connect(
-            instance_connection_name,
-            "pg8000",
-            user=db_user,
-            password=db_pass,
-            db=db_name,
-            ip_type=ip_type,
-        )
-        return conn
-
-    # The Cloud SQL Python Connector can be used with SQLAlchemy
-    # using the 'creator' argument to 'create_engine'
-    pool = sqlalchemy.create_engine(
-        "postgresql+pg8000://",
-        creator=getconn,
-        # [START_EXCLUDE]
-        # Pool size is the maximum number of permanent connections to keep.
-        pool_size=5,
-        # Temporarily exceeds the set pool_size if no connections are available.
-        max_overflow=2,
-        # The total number of concurrent connections for your application will be
-        # a total of pool_size and max_overflow.
-        # 'pool_timeout' is the maximum number of seconds to wait when retrieving a
-        # new connection from the pool. After the specified amount of time, an
-        # exception will be thrown.
-        pool_timeout=30,  # 30 seconds
-        # 'pool_recycle' is the maximum number of seconds a connection can persist.
-        # Connections that live longer than the specified amount of time will be
-        # re-established
-        pool_recycle=1800,  # 30 minutes
-        # [END_EXCLUDE]
-    )
-    return pool
-
-
-
-app.config['SQLALCHEMY_DATABASE_URL'] =sqlalchemy.engine.base.Engine
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
+
+
 
 from flask_login import LoginManager
 login_manager = LoginManager()
