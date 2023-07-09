@@ -21,11 +21,11 @@ gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=Fa
 
 ##CONNECT TO DB
 
-PASSWORD = "password"
-PUBLIC_IP_ADDRESS = "34.66.195.165"
-DBNAME = "quickstart-db"
+PASSWORD = "F|G`Jf|i]fBI4)JJ"
+PUBLIC_IP_ADDRESS = "34.100.145.83"
+DBNAME = "testingblog"
 PROJECT_ID = "focal-acronym-392206"
-INSTANCE_NAME = "focal-acronym-392206:us-central1:quickstart-cloud-run-postgres-instancekstart-cloud-run-postgres-instance"
+INSTANCE_NAME = "focal-acronym-392206:asia-south1:vallapudasurajesh"
 
 # configuration
 app.config["SECRET_KEY"] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
