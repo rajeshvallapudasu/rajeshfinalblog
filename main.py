@@ -36,6 +36,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 db = SQLAlchemy(app)
 
 
+db.create_all()
 
 
 from flask_login import LoginManager
